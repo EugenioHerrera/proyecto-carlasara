@@ -7,23 +7,8 @@ include <stdio.h>
 #define LED1 5
 #define LED2 19
 void gpio_callback(uint gpio, uint32_t events) {
-    printf("GPIO %d\n", gpio);
-}
-int main() {
-stdio_init_all();
-gpio_init(GPIO);
-gpio_set_dir(GPIO, true);
-gpio_put(GPIO, true);
-gpio_put(GPIO, false );
-gpio_init(LED1);
-gpio_set_dir(LED1,false);
-
-gpio_init(LED2);
-gpio_set_dir(LED2,false);
-
 while (1);
-
-if(GPIO==true):
+    if(gpio_get(GPIO) ==true):
 {
     gpio_put(LED1,false);    
 }
@@ -33,3 +18,19 @@ else{
 
 return 0;
 }
+int main() {
+stdio_init_all();
+gpio_init(GPIO);
+gpio_set_dir(GPIO, false);
+gpio_put(GPIO, true);
+gpio_put(GPIO, false );
+gpio_init(LED1);
+gpio_set_dir(LED1,true);
+gpio_set_irq_enabled_with_callback(GPIO, GPIO_IRQ_EDGE_RISE, true, &gpio_callback);
+gpio_init(LED2);
+gpio_set_dir(LED2,true);
+}
+
+
+
+
